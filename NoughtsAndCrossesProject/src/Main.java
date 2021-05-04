@@ -1,5 +1,6 @@
 import Board.*;
 import WinCon.WinConditions;
+import AI.MiniMax;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -69,15 +70,27 @@ public class Main {
 
                 } else {
                     //Computer turn
-                    Random random = new Random();
-                    int int_random = random.nextInt(10);
-                    if(board.isOpen(int_random)){
-                        //Play move and give turn to player
-                        board.placeMove(turn,int_random);
-                        validMove = true;
-                        turn = "Player";
+                    int bestScore = -2147483648;
+                    int move = -10;
+                    MiniMax m = new MiniMax();
+
+                    for(int i=1;i<10;i++){
+                        if(board.isOpen(i)){
+                            board.placeMove(turn,i);
+                            int score = MiniMax.calculate(board,0,"Player");
+                            board.undoMove(i);
+
+                            if(score>bestScore){
+                                bestScore = score;
+                                move = i;
+                            }
+
+                        }
                     }
 
+                    board.placeMove(turn,move);
+                    turn = "Player";
+                    validMove = true;
                 }
             }
 
@@ -93,3 +106,4 @@ public class Main {
         }
     }
 }
+

@@ -84,6 +84,32 @@ public class Board {
 
     }
 
+
+    public void undoMove(int move){
+        //Empties position
+        switch (move){
+            case 1: pos1 = " ";
+                break;
+            case 2: pos2 = " ";
+                break;
+            case 3: pos3 = " ";
+                break;
+            case 4: pos4 = " ";
+                break;
+            case 5: pos5 = " ";
+                break;
+            case 6: pos6 = " ";
+                break;
+            case 7: pos7 = " ";
+                break;
+            case 8: pos8 = " ";
+                break;
+            case 9: pos9 = " ";
+                break;
+        }
+    }
+
+
     public void print(){
         updateBoard();
         System.out.println(this.board+"\n\n--------------------------------------------------\n");
