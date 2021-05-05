@@ -10,9 +10,11 @@ public class main {
         land.print();
 
         Human human = new Human();
-        human.setPositionX(0);
+        human.setPositionX(land.);
         human.setPositionY(0);
 
+        land.spawn(human.getPositionX(),human.getPostitionY(), human);
+        land.print();
 
 
     }

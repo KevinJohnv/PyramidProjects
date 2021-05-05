@@ -12,7 +12,7 @@ public class Creature {
 
     public int getDex(){return dex;}
 
-    public int getPositionx(){
+    public int getPositionX(){
         return positionX;
     }
 

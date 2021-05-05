@@ -8,6 +8,14 @@ public class Land {
             Arrays.fill(row, 0);
     }
 
+    public void spawn(int x, int y, Creature creature){
+        if(creature.getClass() == (new Human()).getClass()){
+            land[x][y] = 1;
+        }else{
+            land[x][y] = 2;
+        }
+    }
+
     //Takes in current location and direction and moves the piece if it can
     public void move(int x, int y, Creature creature,String direction){
        //Checks if move is possible
@@ -24,18 +32,21 @@ public class Land {
                     "The flat earthers were right all along...");
         }
 
-        //Checks if something is already in the specified area
-        if(peek(x,y)){
-            //Battle Logic
-        }else{
-            coverTracks(x,y);
-            if(creature.getClass() == (new Human()).getClass()){
-                //If human then change the location to human
-                moveDirection(x,y,direction,1);
+        if(movePossible){
+            //Checks if something is already in the specified area
+            if(peek(x,y)){
+                //Battle Logic
             }else{
-                moveDirection(x,y,direction,2);
+                coverTracks(x,y);
+                if(creature.getClass() == (new Human()).getClass()){
+                    //If human then change the location to human
+                    moveDirection(x,y,direction,1);
+                }else{
+                    moveDirection(x,y,direction,2);
+                }
             }
         }
+
 
     }
 
@@ -50,14 +61,16 @@ public class Land {
     //Output: void
     //Description: Changes the directed tile to the given int
     private void moveDirection(int x, int y, String direction,int rep){
+        boolean battle = false;
         if(direction.equalsIgnoreCase("n")){
+            peek(x,y+1);
             land[y+1][x] = rep;
         }else if(direction.equalsIgnoreCase("s")){
             land[y-1][x] = rep;
         }else if (direction.equalsIgnoreCase("e")){
             land[y][x+1] = rep;
         }else if(direction.equalsIgnoreCase("w")){
-            land[y][x-1] = rep
+            land[y][x-1] = rep;
         }
     }
 
