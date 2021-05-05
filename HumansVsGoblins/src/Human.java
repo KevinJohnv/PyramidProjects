@@ -70,5 +70,11 @@ public class Human extends Creature{
                 setAtt(baseAtt+175);
             }
         }
+
+
+    }
+
+    public String toString(){
+        return ("This human has "+att+"att, "+def+" def, "+dex+" dex");
     }
 }

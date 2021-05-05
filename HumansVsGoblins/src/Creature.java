@@ -39,4 +39,8 @@ public class Creature {
     public void setPositionY(int postitionY) {
         this.postitionY = postitionY;
     }
+
+    public String toString(){
+        return ("This creature has "+att+"att, "+def+" def, "+dex+" dex");
+    }
 }
