@@ -6,6 +6,12 @@ public class Human extends Creature{
     int baseDef = 10;
     int baseDex = 10;
 
+    public Human(){}
+
+    public Human(Land land){
+        super(land);
+    }
+
     public void setArmor(String armor) {
         this.armor = armor;
         updateGear();
@@ -75,6 +81,7 @@ public class Human extends Creature{
     }
 
     public String toString(){
-        return ("This human has "+att+"att, "+def+" def, "+dex+" dex");
+        return ("This human has "+att+"att, "+def+" def, "+dex+" dex " +
+                "\nLocation x: "+getPositionX()+" y:"+getPostitionY());
     }
 }

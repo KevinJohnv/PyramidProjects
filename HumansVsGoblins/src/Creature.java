@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Creature {
     int att = 10;
     int def = 10;
@@ -5,6 +7,20 @@ public class Creature {
     int health = 100;
     private int positionX = 0;
     private int postitionY = 0;
+
+    public Creature(){}
+
+    public Creature(Land land){
+        //Spawn the creature somewhere on the land
+        Random random = new Random();
+        positionX = random.nextInt(land.land.length);
+        postitionY = random.nextInt(land.land.length);
+        while(land.peek(positionX,postitionY)){
+            positionX = random.nextInt(land.land.length);
+            postitionY = random.nextInt(land.land.length);
+        }
+        land.spawn(positionX,postitionY,this);
+    }
 
     public int getAtt(){return att;}
 
@@ -41,6 +57,11 @@ public class Creature {
     }
 
     public String toString(){
-        return ("This creature has "+att+"att, "+def+" def, "+dex+" dex");
+        return ("This creature has "+att+"att, "+def+" def, "+dex+" dex\nCurrently located at x:"+positionX+" and" +
+                "y: "+postitionY);
+    }
+
+    public void move(Land land, String direction){
+        land.move(positionX,postitionY,this,direction);
     }
 }

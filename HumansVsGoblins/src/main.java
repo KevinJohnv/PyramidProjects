@@ -9,11 +9,15 @@ public class main {
         Land land = new Land();
         land.print();
 
-        Human human = new Human();
-        human.setPositionX(land.);
-        human.setPositionY(0);
+        Human human = new Human(land);
+        land.print();
+        System.out.println(human.toString());
 
-        land.spawn(human.getPositionX(),human.getPostitionY(), human);
+        Goblin goblin = new Goblin(land);
+        System.out.println(goblin.toString());
+        land.print();
+
+        human.move(land,"w");
         land.print();
 
 

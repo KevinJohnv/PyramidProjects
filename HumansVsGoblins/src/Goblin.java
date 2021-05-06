@@ -6,11 +6,11 @@ public class Goblin  extends  Creature{
     int baseDex = 30;
     int evolution = 0;
 
-    public void evolve(int i){
-
+    public Goblin(Land land){
+        super(land);
     }
 
-    public void move(){
+    public void evolve(int i){
 
     }
 
