@@ -1,7 +1,34 @@
 import java.util.Random;
 
 public class Creature {
-    int att = 10;
+    int row;
+    int column;
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public String toString(){
+        return ("Current position is "+row+" "+ column);
+    }
+
+
+    public void attack(Creature creature){}
+
+
+    /*int att = 10;
     int def = 10;
     int dex = 10;
     int health = 100;
@@ -22,6 +49,10 @@ public class Creature {
         land.spawn(positionX,postitionY,this);
     }
 
+    public int getHealth(){
+        return health;
+    }
+
     public int getAtt(){return att;}
 
     public int getDef(){return def;}
@@ -34,6 +65,10 @@ public class Creature {
 
     public int getPostitionY() {
         return postitionY;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public void setAtt(int att) {
@@ -64,4 +99,14 @@ public class Creature {
     public void move(Land land, String direction){
         land.move(positionX,postitionY,this,direction);
     }
+
+    public void attack(Creature target){
+        if(target.getDef()<att){
+            System.out.println("The attack does nothing");
+        }else{
+            target.setHealth(target.health-(target.getDef()-att));
+
+            System.out.println("The attack connects, target is left with "+target.getHealth()+" health.");
+        }
+    }*/
 }
