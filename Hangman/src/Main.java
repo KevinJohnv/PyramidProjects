@@ -16,17 +16,22 @@ public class Main {
 
             boolean invalid = false;
             do{
-                String input = scanner.next();
-                if(input.equalsIgnoreCase("N")){
-                    play =false;
-                    invalid = false;
-                }else if(input.equalsIgnoreCase("Y")){
-                    play = true;
-                    invalid = false;
-                }else{
-                    System.out.println("You make no sense, its a y or n question");
-                    invalid=true;
+                try{
+                    String input = scanner.next();
+                    if(input.equalsIgnoreCase("N")){
+                        play =false;
+                        invalid = false;
+                    }else if(input.equalsIgnoreCase("Y")){
+                        play = true;
+                        invalid = false;
+                    }else{
+                        System.out.println("You make no sense, its a y or n question");
+                        invalid=true;
+                    }
+                }catch (Exception e){
+                    System.out.println("Invalid input");
                 }
+
             }while(invalid);
         }
     }
@@ -57,65 +62,67 @@ public class Main {
         String input;
         //Game loop
         while(!gameover && !win){
-            input = scanner.next().toLowerCase();
+            try{input = scanner.next().toLowerCase();
 
-            if(input.length() == 1){
-                int checker = check(input.charAt(0), word,guesses);
+                if(input.length() == 1){
+                    int checker = check(input.charAt(0), word,guesses);
 
-                if(checker == 0){
-                    //Guess is correct
+                    if(checker == 0){
+                        //Guess is correct
+                        for(int i=0; i<word.length();i++){
+                            if(input.charAt(0) == word.charAt(i)){
+                                output.set(i,input.charAt(0));
+                            }
+                        }
+                        guesses.add(input.charAt(0));
+
+                    } else if(checker == 1){
+                        //Guess is incorrect
+                        guesses.add(input.charAt(0));
+                        gamestage++;
+                    }else{
+                        System.out.println("\n\n You've already tried that one");
+                    }
+                    switch(gamestage){
+                        case 0:
+                            gameStages.gameStage0(guesses,output);
+                            break;
+                        case 1:
+                            gameStages.gameStage1(guesses,output);
+                            break;
+                        case 2:
+                            gameStages.gameStage2(guesses,output);
+                            break;
+                        case 3:
+                            gameStages.gameStage3(guesses,output);
+                            break;
+                        case 4:
+                            gameStages.gameStage4(guesses,output);
+                            break;
+                        case 5:
+                            gameStages.gameStage5(guesses,output);
+                            break;
+                        case 6:
+                            gameStages.gameStage6(guesses,output);
+                            gameover = true;
+                            break;
+                    }
+                    System.out.println("Exited switch");//------------------------------------------------------------------------------------------------------
+                    //Check to see if the output is now the same as the word and end game with win if so
+                    int count=0;
                     for(int i=0; i<word.length();i++){
-                        if(input.charAt(0) == word.charAt(i)){
-                            output.set(i,input.charAt(0));
+                        if(output.get(i) == word.charAt(i)){
+                            count++;
                         }
                     }
-                    guesses.add(input.charAt(0));
 
-                } else if(checker == 1){
-                    //Guess is incorrect
-                    guesses.add(input.charAt(0));
-                    gamestage++;
+                    if(count == word.length()){win=true;}
+
                 }else{
-                    System.out.println("\n\n You've already tried that one");
+                    System.out.println("Come on now, I just need one letter... Or a number if your just trying to kill him");
                 }
-                switch(gamestage){
-                case 0:
-                    gameStages.gameStage0(guesses,output);
-                    break;
-                case 1:
-                    gameStages.gameStage1(guesses,output);
-                    break;
-                case 2:
-                    gameStages.gameStage2(guesses,output);
-                    break;
-                case 3:
-                    gameStages.gameStage3(guesses,output);
-                    break;
-                case 4:
-                    gameStages.gameStage4(guesses,output);
-                    break;
-                case 5:
-                    gameStages.gameStage5(guesses,output);
-                    break;
-                case 6:
-                    gameStages.gameStage6(guesses,output);
-                    gameover = true;
-                    break;
-             }
-                System.out.println("Exited switch");//------------------------------------------------------------------------------------------------------
-                //Check to see if the output is now the same as the word and end game with win if so
-                int count=0;
-                for(int i=0; i<word.length();i++){
-                    if(output.get(i) == word.charAt(i)){
-                        count++;
-                    }
-                }
+            }catch(Exception e){}
 
-                if(count == word.length()){win=true;}
-
-            }else{
-                System.out.println("Come on now, I just need one letter... Or a number if your just trying to kill him");
-            }
 
 
         }

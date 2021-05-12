@@ -17,7 +17,7 @@ public class Main {
         Board board = new Board();
         WinConditions w = new WinConditions();
         String turn = "Computer";
-        Scanner s = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         //Game loop
 
@@ -27,17 +27,22 @@ public class Main {
 
         while(firstPlayerChosen == false){
 
-            System.out.println("Do you want to start(Y/N)");
-             input = s.next();
-            if(input.equalsIgnoreCase("y")){
-                turn = "Player";
-                firstPlayerChosen = true;
-            }else if(input.equalsIgnoreCase("n")){
-                turn = "Computer";
-                firstPlayerChosen = true;
-            }else{
+            try{
+                System.out.println("Do you want to start(Y/N)");
+                input = scanner.next();
+                if(input.equalsIgnoreCase("y")){
+                    turn = "Player";
+                    firstPlayerChosen = true;
+                }else if(input.equalsIgnoreCase("n")){
+                    turn = "Computer";
+                    firstPlayerChosen = true;
+                }else{
+                    System.out.println("Invalid input try again");
+                }
+            }catch (Exception e){
                 System.out.println("Invalid input try again");
             }
+
         }
 
         System.out.println("This board has the following structure. \n" +
@@ -53,45 +58,51 @@ public class Main {
 
 
             while(validMove == false) {
-                //Check whose turn it is
-                if (turn.equalsIgnoreCase("player")) {
-                    System.out.println("Enter a number between 1-9 to put ur move down");
-                    int move = s.nextInt();
+                try{
+                    //Check whose turn it is
+                    if (turn.equalsIgnoreCase("player")) {
+                        System.out.println("Enter a number between 1-9 to put ur move down");
+                        int move = scanner.nextInt();
 
-                    //Check if the move is valid
-                    if(board.isOpen(move)){
-                        board.placeMove(turn,move);
-                        validMove = true;
-                        turn = "Computer";
-                    }else{
-                        System.out.println("That move is invalid try a different one");
-                        board.print();
-                    }
-
-                } else {
-                    //Computer turn
-                    int bestScore = -2147483648;
-                    int move = -10;
-                    MiniMax m = new MiniMax();
-
-                    for(int i=1;i<10;i++){
-                        if(board.isOpen(i)){
-                            board.placeMove(turn,i);
-                            int score = MiniMax.calculate(board,0,"Player");
-                            board.undoMove(i);
-
-                            if(score>bestScore){
-                                bestScore = score;
-                                move = i;
-                            }
-
+                        //Check if the move is valid
+                        if(board.isOpen(move)){
+                            board.placeMove(turn,move);
+                            validMove = true;
+                            turn = "Computer";
+                        }else{
+                            System.out.println("That move is invalid try a different one");
+                            board.print();
                         }
-                    }
 
-                    board.placeMove(turn,move);
-                    turn = "Player";
-                    validMove = true;
+                    } else {
+                        //Computer turn
+                        int bestScore = -2147483648;
+                        int move = -10;
+                        MiniMax m = new MiniMax();
+
+                        for(int i=1;i<10;i++){
+                            if(board.isOpen(i)){
+                                board.placeMove(turn,i);
+                                int score = MiniMax.calculate(board,0,"Player");
+                                board.undoMove(i);
+
+                                if(score>bestScore){
+                                    bestScore = score;
+                                    move = i;
+                                }
+
+                            }
+                        }
+
+                        board.placeMove(turn,move);
+                        turn = "Player";
+                        validMove = true;
+                    }
+                }catch ( Exception e){
+                    System.out.println("Invalid input try again");
                 }
+
+
             }
 
 
