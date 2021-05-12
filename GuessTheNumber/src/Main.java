@@ -27,24 +27,29 @@ public class Main {
             boolean guessed = false;
             System.out.println(card);
             while(guessed == false){
-                int guess = scanner.nextInt();
-                if(card == guess){
-                    System.out.println("'I amaze myself', he bellows 'you got it right! Thanks for entertaining me. " +
-                            "Do you want to play again?\n================\nany key to contiue\nN to exit\n================" );
-                    String again = scanner.next();
-                    if(again.charAt(0) == 'N'){
-                        System.out.println("Shame, well I guess Ill see you later then!");
-                        play=false;
-                    }
-                    guessed=true;
-                }else{
-                    if(guess > card){
-                        System.out.println("Too high, go lower.\n");
+                try{
+                    int guess = scanner.nextInt();
+                    if(card == guess){
+                        System.out.println("'I amaze myself', he bellows 'you got it right! Thanks for entertaining me. " +
+                                "Do you want to play again?\n================\nany key to contiue\nN to exit\n================" );
+                        String again = scanner.next();
+                        if(again.charAt(0) == 'N'){
+                            System.out.println("Shame, well I guess Ill see you later then!");
+                            play=false;
+                        }
+                        guessed=true;
                     }else{
-                        System.out.println("Too low, higher.\n");
+                        if(guess > card){
+                            System.out.println("Too high, go lower.\n");
+                        }else{
+                            System.out.println("Too low, higher.\n");
+                        }
                     }
+                }catch (Exception e){
+                    System.out.println("Invalid input");
                 }
             }
+
         }
     }
 
